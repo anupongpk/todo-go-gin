@@ -32,4 +32,12 @@ func (t *TodoHandler) NewTask(c *gin.Context) {
 		})
 		return
 	}
+
+	r := t.db.Create(&todo)
+	if err := r.Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+	}
+
 }
