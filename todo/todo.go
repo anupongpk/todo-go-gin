@@ -12,7 +12,7 @@ type Todo struct {
 	gorm.Model
 }
 
-func (Todo) Tablename() string {
+func (Todo) TableName() string {
 	return "todos"
 }
 
@@ -39,5 +39,9 @@ func (t *TodoHandler) NewTask(c *gin.Context) {
 			"error": err.Error(),
 		})
 	}
+
+	c.JSON(http.StatusCreated, gin.H{
+		"ID": todo.Model.ID,
+	})
 
 }
