@@ -25,7 +25,14 @@ var (
 )
 
 func main() {
-	err := godotenv.Load("local.env")
+	//create liveness probe
+	_, err := os.Create("/tmp/live")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer os.Remove("/tmp/live")
+
+	err = godotenv.Load("local.env")
 	if err != nil {
 		log.Println("please consider environment variables %s", err)
 	}
@@ -41,6 +48,9 @@ func main() {
 
 	// Gin Routes
 	r := gin.Default()
+	r.GET("/healthz", func(c *gin.Context) {
+		c.Status(200)
+	})
 
 	//set idflags
 	r.GET("/x", func(c *gin.Context) {
