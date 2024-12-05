@@ -7,6 +7,7 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
+	"github.com/anupongpk/todo-go-gin/auth"
 	"github.com/anupongpk/todo-go-gin/todo"
 )
 
@@ -27,6 +28,9 @@ func main() {
 			"message": "pong",
 		})
 	})
+
+	// routes Auth
+	r.GET("/tokenz", auth.AccessToken)
 
 	handler := todo.NewTodoHandler(db)
 	r.POST("/todos", handler.NewTask)
