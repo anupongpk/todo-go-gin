@@ -19,6 +19,11 @@ import (
 	"github.com/anupongpk/todo-go-gin/todo"
 )
 
+var (
+	buildcommit = "dev"
+	buildtime   = time.Now().String()
+)
+
 func main() {
 	err := godotenv.Load("local.env")
 	if err != nil {
@@ -36,6 +41,15 @@ func main() {
 
 	// Gin Routes
 	r := gin.Default()
+
+	//set idflags
+	r.GET("/x", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"buildcommit": buildcommit,
+			"buildtime":   buildtime,
+		})
+	})
+
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "pong",
