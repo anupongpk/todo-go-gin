@@ -93,6 +93,7 @@ func main() {
 	handler := todo.NewTodoHandler(db)
 	protected.POST("/todos", handler.NewTask)
 	protected.GET("/todos", handler.List)
+	protected.DELETE("/todos/:id", handler.Remove)
 
 	// handle graceful shutdown
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
