@@ -56,3 +56,15 @@ func (t *TodoHandler) NewTask(c *gin.Context) {
 	})
 
 }
+
+
+func (t *TodoHandler) list (c *gin.Context) {
+	var todos []Todo
+
+}
+
+
+func (t *TodoHandler) remove (c *gin.Context) {
+	var todos []Todo
+	
+}

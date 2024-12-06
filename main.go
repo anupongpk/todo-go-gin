@@ -10,11 +10,12 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+
 	"golang.org/x/time/rate"
 	"gorm.io/driver/mysql"
-
 	"gorm.io/gorm"
 
 	"github.com/anupongpk/todo-go-gin/auth"
@@ -50,6 +51,21 @@ func main() {
 
 	// Gin Routes
 	r := gin.Default()
+
+	//CORS
+	config := cors.DefaultConfig()
+
+	config.AllowOrigins = []string{
+		"http://localhost:8080",
+	}
+
+	config.AllowHeaders = []string{
+		"Origin",
+		"Authorization",
+		"TransactionID",
+	}
+
+	//livenes probe and readines probe
 	r.GET("/healthz", func(c *gin.Context) {
 		c.Status(200)
 	})
